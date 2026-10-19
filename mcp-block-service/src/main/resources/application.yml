@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: mcp-block-service
+  ai:
+    mcp:
+      server:
+        name: brain-workflow-tools
+        version: 1.0.0
+        type: SYNC
+        protocol: STREAMABLE
+        instructions: >
+          Exposes four fixed onboarding workflow actions that forward requests
+          to the configured workflow/Brain service. Always inspect the returned
+          HTTP status and response body; a non-2xx status means the workflow
+          operation did not succeed.
+        annotation-scanner:
+          enabled: true
+
+server:
+  port: ${SERVER_PORT:8082}
+
+workflow:
+  api:
+    base-url: ${WORKFLOW_API_BASE_URL:http://localhost:8081}
+    connect-timeout: ${WORKFLOW_API_CONNECT_TIMEOUT:5s}
+    read-timeout: ${WORKFLOW_API_READ_TIMEOUT:30s}
+
+logging:
+  level:
+    com.example.mcpblock: INFO
+
